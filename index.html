@@ -504,7 +504,7 @@ main{
   <svg class="ayrac gir" style="--gec:.3s" viewBox="0 0 260 26" aria-hidden="true"></svg>
 
   <p class="davet gir" data-alan="davet-metni">
-    Sevgili oğlumuz <em>Mustafa Alp</em>’ın
+    Sevgili oğlumuz <em>Mustafa&nbsp;Alp</em>’ın
     sünnet merasimine teşrifleriniz
     bizleri onurlandıracaktır.
   </p>
@@ -602,8 +602,9 @@ const CONFIG = {
   mekan     : "Menemen Ordu Evi",
   adres     : "Esatpaşa Mah. Atatürk Cad. 212 Sk.<br>Kubilay · Menemen / İzmir",
 
-  // Davet cümlesi — <em> ile sarılan kısım altın renkte görünür
-  davetMetni: "Sevgili oğlumuz <em>Mustafa Alp</em>’ın sünnet merasimine " +
+  // Davet cümlesi — <em> ile sarılan kısım altın renkte görünür.
+  // &nbsp; ile isim satır sonunda bölünmüyor.
+  davetMetni: "Sevgili oğlumuz <em>Mustafa&nbsp;Alp</em>’ın sünnet merasimine " +
               "teşrifleriniz bizleri onurlandıracaktır.",
 
   baba : { ad:"İsmail Köseoğlu", nesep:"Merhum Mustafa Köseoğlu torunu" },
