@@ -400,8 +400,34 @@ main{
   transform:translateY(13%);            /* tuğ tacına yer aç */
   text-shadow:0 0 34px var(--harf-golge);
 }
-/* Bodoni'nin ince yan çizgileri açık zeminde kayboluyor — gövdeyi kalınlaştır */
+/* ── BODONİ'NİN İNCE ÇİZGİLERİ ───────────────────────────────────────────
+   Bodoni Moda değişken bir yazı tipi ve "opsz" (optik boy) ekseni var.
+   Tarayıcı bunu punto'dan otomatik türetiyor: büyük başlıkta opsz≈96
+   seçiliyor, bu da azami kontrast — yani KIL İNCELİĞİNDE saç çizgileri.
+   Kâğıt baskıda güzel, ekranda krem zemin üzerinde kayboluyor.
+   Optik boyu elle 22'ye sabitliyoruz: Didone karakteri korunur ama
+   ince çizgiler gövde kazanır. */
+[data-tema="fildisi"] .isim .satir,
+[data-tema="fildisi"] .madalyon .harf,
+[data-tema="fildisi"] .deger,
+[data-tema="fildisi"] .imza .ad{
+  font-optical-sizing:none;
+  font-variation-settings:"opsz" 22;
+}
 [data-tema="fildisi"] .madalyon .harf{ font-weight:600 }
+[data-tema="fildisi"] .isim .satir{ font-weight:500 }
+
+/* Mobil tarayıcılarda background-clip:text ile filter birleşince metin
+   ayrı bir raster katmanına alınıyor ve saç çizgileri o katmanda yutuluyor.
+   Masaüstünde sorun çıkmıyor, telefonda çıkıyor. Küçük ekranda letterpress
+   izini kaldırıyoruz: okunabilirlik efektten önce gelir. */
+@media (max-width:820px){
+  [data-tema="fildisi"] .varak{ filter:none }
+  [data-tema="fildisi"] .isim .satir{ font-weight:600 }
+  [data-tema="fildisi"] .madalyon svg,
+  [data-tema="fildisi"] .ayrac,
+  [data-tema="fildisi"] .kose{ filter:none }
+}
 
 /* ── Şemse yavaşça döner: hareket var ama dikkat dağıtmıyor.
       Tuğra tacı ve harf dışarıda kaldığı için dik durmaya devam eder. ── */
@@ -699,6 +725,12 @@ main{
       <a class="dugme" id="haritaBtn" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
         <span class="yazi">Yol Tarifi</span>
+      </a>
+      <!-- download koymuyoruz: iOS ve Android .ics'i doğrudan Takvim
+           uygulamasında açıyor, download indirmeye zorluyor -->
+      <a class="dugme" id="takvimBtn" href="merasim.ics">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8.5 3.5v4M15.5 3.5v4"/></svg>
+        <span class="yazi">Takvime Ekle</span>
       </a>
     </div>
 

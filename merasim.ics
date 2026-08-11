@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Koseoglu//Sunnet Merasimi//TR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mustafa-alp-sunnet-20260822@koseoglu.davetiye
+DTSTAMP:20260811T120000Z
+DTSTART:20260822T170000Z
+DTEND:20260822T203000Z
+SUMMARY:Mustafa Alp Köseoğlu - Sünnet Merasimi
+LOCATION:Menemen Ordu Evi\, Menemen / İzmir
+DESCRIPTION:Davetiye: https://bytexcglobal.github.io/mustafa-alp-sunnet/
+URL:https://bytexcglobal.github.io/mustafa-alp-sunnet/
+GEO:38.600001;27.073791
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:-P1D
+DESCRIPTION:Yarın: Mustafa Alp Köseoğlu sünnet merasimi
+END:VALARM
+END:VEVENT
+END:VCALENDAR
