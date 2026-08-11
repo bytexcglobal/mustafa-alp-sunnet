@@ -51,7 +51,9 @@
   --altin-koyu:  #7E611A;
 
   --fildisi: #F2ECDE;
-  --sis:     rgba(242,236,222,.62);
+  /* Okunabilirlik: koyu zeminde .62 altı ikincil metin yaşlı gözler için zor,
+     tüm silik tonlar yükseltildi. */
+  --sis:     rgba(242,236,222,.82);
 
   --serif-display: "Bodoni Moda", "Didot", "Playfair Display", Georgia, serif;
   --serif-metin:   "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -283,9 +285,9 @@ main{
 .isim .satir{display:block;white-space:nowrap}
 
 .merasim{
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.63rem,2.7vw,.76rem);
-  letter-spacing:.52em;text-indent:.52em;text-transform:uppercase;
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.72rem,3vw,.84rem);
+  letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;
   color:var(--sis);
 }
 
@@ -297,9 +299,9 @@ main{
 
 /* ── davet metni ── */
 .davet{
-  font-size:clamp(1.13rem,4.9vw,1.4rem);
-  font-weight:300;line-height:1.95;letter-spacing:.012em;
-  color:rgba(242,236,222,.9);
+  font-size:clamp(1.2rem,5.2vw,1.48rem);
+  font-weight:400;line-height:1.9;letter-spacing:.012em;
+  color:rgba(242,236,222,.96);
   max-width:26ch;margin-inline:auto;
 }
 .davet em{
@@ -311,10 +313,10 @@ main{
 .kunye{margin-top:clamp(40px,9vw,60px)}
 .blok{margin-bottom:clamp(34px,8vw,48px)}
 .etiket{
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.56rem,2.3vw,.65rem);
-  letter-spacing:.44em;text-indent:.44em;text-transform:uppercase;
-  color:rgba(201,162,39,.78);
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.66rem,2.7vw,.76rem);
+  letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;
+  color:rgba(244,227,172,.92);
   margin-bottom:clamp(12px,3vw,16px);
 }
 .deger{
@@ -323,8 +325,8 @@ main{
   color:var(--fildisi);
 }
 .deger .ince{
-  display:block;font-family:var(--serif-metin);font-weight:300;font-style:italic;
-  font-size:clamp(1rem,4.2vw,1.16rem);
+  display:block;font-family:var(--serif-metin);font-weight:400;font-style:italic;
+  font-size:clamp(1.1rem,4.6vw,1.26rem);
   color:var(--sis);margin-top:.42em;letter-spacing:.02em;
 }
 
@@ -335,8 +337,8 @@ main{
   font-size:clamp(1.15rem,5vw,1.5rem);
 }
 .saat .kucuk{
-  font-family:var(--sans);font-size:.55em;font-weight:300;
-  letter-spacing:.32em;text-transform:uppercase;color:var(--sis);
+  font-family:var(--sans);font-size:.6em;font-weight:400;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--sis);
 }
 
 /* ── butonlar ── */
@@ -377,9 +379,9 @@ main{
 /* ── katılım bildirimi ── */
 .katilim{margin-top:clamp(6px,2vw,12px)}
 .katilim-not{
-  font-family:var(--serif-metin);font-weight:300;font-style:italic;
-  font-size:clamp(.95rem,3.9vw,1.08rem);line-height:1.65;
-  color:rgba(242,236,222,.56);
+  font-family:var(--serif-metin);font-weight:400;font-style:italic;
+  font-size:clamp(1.02rem,4.2vw,1.16rem);line-height:1.62;
+  color:rgba(242,236,222,.8);
   max-width:27ch;margin:0 auto clamp(22px,5vw,30px);
 }
 /* birincil: istediğimiz eylem, yaldız dolgulu */
@@ -390,8 +392,8 @@ main{
 }
 /* sessiz: eşit ağırlıkta olmamalı, sadece bir çıkış yolu */
 .dugme.sessiz{
-  border-color:rgba(242,236,222,.15);
-  background:none;color:rgba(242,236,222,.48);
+  border-color:rgba(242,236,222,.24);
+  background:none;color:rgba(242,236,222,.7);
 }
 .dugme.sessiz:hover,.dugme.sessiz:focus-visible{
   background:linear-gradient(180deg,rgba(242,236,222,.13),rgba(242,236,222,.04));
@@ -400,9 +402,9 @@ main{
 }
 .tel{
   display:inline-block;margin-top:clamp(20px,5vw,28px);
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.62rem,2.5vw,.72rem);letter-spacing:.2em;
-  color:rgba(244,227,172,.55);text-decoration:none;
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.7rem,2.8vw,.8rem);letter-spacing:.16em;
+  color:rgba(244,227,172,.85);text-decoration:none;
   border-bottom:1px solid rgba(201,162,39,.24);padding-bottom:.35em;
   transition:color .35s ease,border-color .35s ease;
 }
@@ -410,24 +412,24 @@ main{
 
 /* ── imza — ebeveynler ve nesep satırları ── */
 .imza{
-  margin-top:clamp(52px,12vw,80px);
+  margin-top:clamp(40px,9vw,58px);
   display:flex;flex-direction:column;
   gap:clamp(30px,7.5vw,42px);
 }
 .nesep{
-  font-family:var(--serif-metin);font-style:italic;font-weight:300;
-  font-size:clamp(.85rem,3.5vw,.98rem);letter-spacing:.02em;
-  color:rgba(242,236,222,.46);margin-bottom:.62rem;
+  font-family:var(--serif-metin);font-style:italic;font-weight:400;
+  font-size:clamp(.98rem,4vw,1.12rem);letter-spacing:.02em;
+  color:rgba(242,236,222,.76);margin-bottom:.62rem;
 }
 .imza .ad{
   font-family:var(--serif-display);font-weight:400;
-  font-size:clamp(1.18rem,5.2vw,1.5rem);letter-spacing:.05em;
+  font-size:clamp(1.3rem,5.6vw,1.62rem);letter-spacing:.05em;
 }
 .imza .rol{
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.55rem,2.2vw,.63rem);
-  letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;
-  color:rgba(242,236,222,.42);margin-top:.85rem;
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.64rem,2.6vw,.74rem);
+  letter-spacing:.32em;text-indent:.32em;text-transform:uppercase;
+  color:rgba(242,236,222,.74);margin-top:.85rem;
 }
 
 /* geri sayım */
@@ -442,10 +444,10 @@ main{
   font-variant-numeric:tabular-nums;
 }
 .sayac .birim{
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.5rem,2vw,.58rem);
-  letter-spacing:.26em;text-indent:.26em;text-transform:uppercase;
-  color:rgba(242,236,222,.45);margin-top:.6rem;
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.58rem,2.3vw,.67rem);
+  letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;
+  color:rgba(242,236,222,.75);margin-top:.6rem;
 }
 </style>
 </head>
@@ -507,6 +509,23 @@ main{
     bizleri onurlandıracaktır.
   </p>
 
+  <!-- Sıra: önce davet edenler, sonra tarih/mekân, en son katılım.
+       Kim çağırıyor → ne zaman → nerede → bildir. -->
+  <div class="imza gir" id="imza">
+    <div class="ebeveyn">
+      <p class="nesep">Merhum Mustafa Köseoğlu torunu</p>
+      <p class="ad varak">İsmail Köseoğlu</p>
+      <p class="rol">Baba</p>
+    </div>
+    <div class="ebeveyn">
+      <p class="nesep">Merhum Ali Benlioğlu torunu</p>
+      <p class="ad varak">Zerrin Köseoğlu</p>
+      <p class="rol">Anne</p>
+    </div>
+  </div>
+
+  <svg class="ayrac gir" viewBox="0 0 260 26" aria-hidden="true"></svg>
+
   <div class="kunye">
 
     <div class="blok gir">
@@ -516,7 +535,7 @@ main{
         <span class="ince">Cumartesi</span>
       </p>
       <p class="saat">
-        <span class="varak" data-alan="saat">13.00</span>
+        <span class="varak" data-alan="saat">20.00</span>
         <span class="kucuk">itibarıyla</span>
       </p>
     </div>
@@ -527,7 +546,7 @@ main{
       <p class="etiket">Mekân</p>
       <p class="deger" data-alan="mekan">
         Menemen Ordu Evi
-        <span class="ince">Esatpaşa Mah. Atatürk Cad. 212 Sk. · Kubilay, Menemen / İzmir</span>
+        <span class="ince">Esatpaşa Mah. Atatürk Cad. 212 Sk.<br>Kubilay · Menemen / İzmir</span>
       </p>
     </div>
 
@@ -561,21 +580,6 @@ main{
       </a>
     </div>
     <a class="tel" id="telBtn" href="#"></a>
-  </div>
-
-  <svg class="ayrac gir" viewBox="0 0 260 26" aria-hidden="true"></svg>
-
-  <div class="imza gir" id="imza">
-    <div class="ebeveyn">
-      <p class="nesep">Merhum Mustafa Köseoğlu torunu</p>
-      <p class="ad varak">İsmail Köseoğlu</p>
-      <p class="rol">Baba</p>
-    </div>
-    <div class="ebeveyn">
-      <p class="nesep">Merhum Ali Benlioğlu torunu</p>
-      <p class="ad varak">Zerrin Köseoğlu</p>
-      <p class="rol">Anne</p>
-    </div>
   </div>
 
 </main>
