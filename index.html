@@ -396,8 +396,8 @@ main{
 }
 .madalyon .harf{
   position:relative;font-family:var(--serif-display);font-weight:500;
-  font-size:min(23vw,94px);line-height:1;
-  transform:translateY(13%);            /* tuğ tacına yer aç */
+  font-size:min(25vw,102px);line-height:1;
+  transform:translateY(4%);             /* optik ortalama payı */
   text-shadow:0 0 34px var(--harf-golge);
 }
 /* ── BODONİ'NİN İNCE ÇİZGİLERİ ───────────────────────────────────────────
@@ -1056,40 +1056,11 @@ function rumi(uzunluk, kalinlik){
   donen.appendChild(g); donen.appendChild(nokta);
   svg.appendChild(donen);
 
-  // ── tuğra izleği: harfin üstünde üç "tuğ"dan taç + "sere" kavsi ──
-  const tugra = el("g",{fill:"none",stroke:g0,"stroke-linecap":"round",opacity:".95"});
-
-  //  yan tuğlar simetrik, uçlar geleneğe uygun biçimde sola kıvrılır
-  [[178,124],[200,112],[222,124]].forEach(([x,tepe],i)=>{
-    tugra.appendChild(el("path",{
-      d:`M${x} 150 C${x-2} 141 ${x-1} 133 ${x+3} ${tepe} `
-      + `C${x+4} ${tepe-6} ${x-2} ${tepe-7} ${x-5} ${tepe-1}`,
-      "stroke-width":1.45, class:"ciz", style:`--cg:${.55+i*.11}s`
-    }));
-  });
-
-  //  sere: tuğları taşıyan ince kaide kavsi
-  tugra.appendChild(el("path",{
-    d:"M166 151 C180 157 220 157 234 151",
-    "stroke-width":1, opacity:".78", class:"ciz", style:"--cg:.5s"
-  }));
-
-  //  beyze: kaideden iki yana savrulan kıvrımlar
-  tugra.appendChild(el("path",{
-    d:"M166 151 C154 149 148 142 150 134",
-    "stroke-width":.95, opacity:".62", class:"ciz", style:"--cg:.9s"
-  }));
-  tugra.appendChild(el("path",{
-    d:"M234 151 C246 149 252 142 250 134",
-    "stroke-width":.95, opacity:".62", class:"ciz", style:"--cg:.9s"
-  }));
-  svg.appendChild(tugra);
-
-  //  kaideyi kanatlayan minik rumiler
-  const kanat = el("g",{fill:g0,opacity:".72"});
-  kanat.appendChild(el("path",{d:rumi(13,4.2), transform:"translate(162 152) rotate(186)"}));
-  kanat.appendChild(el("path",{d:rumi(13,4.2), transform:"translate(238 152) rotate(-6)"}));
-  svg.appendChild(kanat);
+  /* Buraya harfin üstüne tuğra izleği (üç "tuğ" + sere kavsi) konmuştu.
+     Kaldırıldı: taç, dönen 16 köşeli yıldızın tam üstüne denk geliyordu.
+     Ne taç tuğra olarak okunuyordu ne de yıldız kendi geometrisini
+     gösterebiliyordu — iki öğe birbirini götürüyordu. Madalyonun merkezi
+     artık yalnızca monogram; dönen süsleme de böylece net okunuyor. */
 
   svg.querySelectorAll(".ciz").forEach(p=>{
     const u = Math.ceil(p.getTotalLength ? p.getTotalLength() : 1200);
