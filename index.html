@@ -10,14 +10,14 @@
 <!-- Arama motorlarına kapalı: link paylaşımı çalışır, Google'da çıkmaz -->
 <meta name="robots" content="noindex, nofollow">
 
-<!-- WhatsApp / Telegram / Facebook link önizleme kartı -->
+<!-- WhatsApp / Telegram / Facebook link önizleme kartı.
+     JPEG kullanılıyor: WhatsApp büyük PNG önizlemelerini çekmeyebiliyor. -->
 <meta property="og:type"        content="website">
 <meta property="og:site_name"   content="Sünnet Merasimi">
 <meta property="og:locale"      content="tr_TR">
 <meta property="og:title"       content="Mustafa Alp Köseoğlu — Sünnet Merasimi">
 <meta property="og:description" content="22 Ağustos 2026 Cumartesi · Saat 20.00 · Menemen Ordu Evi">
 <meta property="og:url"         content="https://bytexcglobal.github.io/mustafa-alp-sunnet/">
-<!-- JPEG: WhatsApp buyuk PNG onizlemelerini cekmeyebiliyor (90 KB'a indirildi) -->
 <meta property="og:image"       content="https://bytexcglobal.github.io/mustafa-alp-sunnet/kapak.jpg">
 <meta property="og:image:type"  content="image/jpeg">
 <meta property="og:image:width"  content="1200">
@@ -374,6 +374,40 @@ main{
 .dugme:hover::before,.dugme:focus-visible::before{transform:translateX(120%)}
 .dugme:active{transform:translateY(0)}
 
+/* ── katılım bildirimi ── */
+.katilim{margin-top:clamp(6px,2vw,12px)}
+.katilim-not{
+  font-family:var(--serif-metin);font-weight:300;font-style:italic;
+  font-size:clamp(.95rem,3.9vw,1.08rem);line-height:1.65;
+  color:rgba(242,236,222,.56);
+  max-width:27ch;margin:0 auto clamp(22px,5vw,30px);
+}
+/* birincil: istediğimiz eylem, yaldız dolgulu */
+.dugme.birincil{
+  border-color:rgba(244,227,172,.6);
+  background:linear-gradient(180deg,rgba(201,162,39,.24),rgba(201,162,39,.07));
+  color:var(--altin-parlak);
+}
+/* sessiz: eşit ağırlıkta olmamalı, sadece bir çıkış yolu */
+.dugme.sessiz{
+  border-color:rgba(242,236,222,.15);
+  background:none;color:rgba(242,236,222,.48);
+}
+.dugme.sessiz:hover,.dugme.sessiz:focus-visible{
+  background:linear-gradient(180deg,rgba(242,236,222,.13),rgba(242,236,222,.04));
+  border-color:rgba(242,236,222,.38);
+  color:var(--fildisi);box-shadow:none;
+}
+.tel{
+  display:inline-block;margin-top:clamp(20px,5vw,28px);
+  font-family:var(--sans);font-weight:300;
+  font-size:clamp(.62rem,2.5vw,.72rem);letter-spacing:.2em;
+  color:rgba(244,227,172,.55);text-decoration:none;
+  border-bottom:1px solid rgba(201,162,39,.24);padding-bottom:.35em;
+  transition:color .35s ease,border-color .35s ease;
+}
+.tel:hover{color:var(--altin-acik);border-color:rgba(244,227,172,.6)}
+
 /* ── imza — ebeveynler ve nesep satırları ── */
 .imza{
   margin-top:clamp(52px,12vw,80px);
@@ -502,14 +536,31 @@ main{
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
         <span class="yazi">Yol Tarifi</span>
       </a>
-      <a class="dugme" id="rsvpBtn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h18v11H3z"/><path d="m3 7 9 6.2L21 7"/></svg>
-        <span class="yazi">Katılım Bildir</span>
-      </a>
     </div>
 
     <div class="sayac gir" id="sayac" aria-label="Merasime kalan süre"></div>
 
+  </div>
+
+  <svg class="ayrac gir" viewBox="0 0 260 26" aria-hidden="true"></svg>
+
+  <div class="katilim gir" id="katilim">
+    <p class="etiket">Katılım Bildirimi</p>
+    <p class="katilim-not">
+      Hazırlıklarımızı yapabilmemiz için katılım durumunuzu
+      bildirmeniz bizim için çok kıymetli.
+    </p>
+    <div class="dugmeler">
+      <a class="dugme birincil" id="evetBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.6 4.6 4.6L19 7.4"/></svg>
+        <span class="yazi">Katılıyorum</span>
+      </a>
+      <a class="dugme sessiz" id="hayirBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 7.2 16.8 16.8M16.8 7.2 7.2 16.8"/></svg>
+        <span class="yazi">Katılamıyorum</span>
+      </a>
+    </div>
+    <a class="tel" id="telBtn" href="#"></a>
   </div>
 
   <svg class="ayrac gir" viewBox="0 0 260 26" aria-hidden="true"></svg>
@@ -561,10 +612,14 @@ const CONFIG = {
   haritaLink    : "https://www.google.com/maps/dir/?api=1&destination=38.5997852,27.0731005",
 
   // ── Katılım bildirimi ───────────────────────────────────────────────
-  // İkisi de boşsa "Katılım Bildir" butonu otomatik gizlenir.
-  whatsapp      : "",     // ülke koduyla, sadece rakam → örn. "905321234567"
-  telefon       : "",     // normal arama → örn. "0532 123 45 67"
-  whatsappMesaj : "Merhaba, Mustafa Alp’in sünnet merasimine katılımımızı bildirmek istiyorum."
+  // whatsapp boş bırakılırsa katılım bölümü tamamen gizlenir.
+  whatsapp   : "905416473633",          // ülke koduyla, sadece rakam
+  telefonYazi: "0541 647 36 33",        // ekranda görünecek biçim
+
+  // "KATILIYORUM" bilerek büyük harf: WhatsApp'ta aratınca tüm katılım
+  // mesajları tek listede toplanır, sayım oradan yapılır.
+  mesajEvet  : "Mustafa Alp’ın sünnet merasimine KATILIYORUM 🤍\nKişi sayısı: ",
+  mesajHayir : "Mustafa Alp’ın sünnet merasimine maalesef katılamıyorum."
 };
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -600,16 +655,17 @@ const CONFIG = {
 
   document.getElementById("haritaBtn").href = CONFIG.haritaLink;
 
-  /* katılım bildirimi — kanal tanımlı değilse buton tamamen kalkar */
-  const rsvp = document.getElementById("rsvpBtn");
+  /* katılım bildirimi — numara tanımlı değilse bölüm tamamen kalkar */
   if (CONFIG.whatsapp){
-    rsvp.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.whatsappMesaj)}`;
-  } else if (CONFIG.telefon){
-    rsvp.href = "tel:" + CONFIG.telefon.replace(/[^\d+]/g,"");
-    rsvp.removeAttribute("target");
-    rsvp.querySelector(".yazi").textContent = CONFIG.telefon;
+    const wa = m => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(m)}`;
+    document.getElementById("evetBtn").href  = wa(CONFIG.mesajEvet);
+    document.getElementById("hayirBtn").href = wa(CONFIG.mesajHayir);
+
+    const tel = document.getElementById("telBtn");
+    tel.href = "tel:+" + CONFIG.whatsapp;
+    tel.textContent = "veya arayın · " + CONFIG.telefonYazi;
   } else {
-    rsvp.remove();
+    document.getElementById("katilim").remove();
   }
 })();
 
