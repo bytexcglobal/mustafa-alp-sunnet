@@ -800,6 +800,14 @@ const CONFIG = {
   // ISO formatı: YYYY-MM-DDTHH:MM  → geri sayım bunu kullanır
   merasimZamani : "2026-08-22T20:00",
 
+  // Takvim kaydı için UTC damgası. Bilerek elle yazıldı: cihazın saat
+  // diliminden hesaplanırsa yurt dışındaki davetlide saat kayar.
+  // 22 Ağustos 2026 · 20.00 İstanbul = 17.00 UTC
+  takvimBas : "20260822T170000Z",
+  takvimBit : "20260822T203000Z",
+  takvimAd  : "Mustafa Alp Köseoğlu — Sünnet Merasimi",
+  takvimYer : "Menemen Ordu Evi, Menemen / İzmir",
+
   // Yol tarifi — Menemen Ordu Evi'nin tam koordinatı üzerinden navigasyon açar.
   // Koordinat kullanılıyor çünkü isimle arama Google'da yanlış yere düşebiliyor.
   haritaLink    : "https://www.google.com/maps/dir/?api=1&destination=38.600001,27.073791",
@@ -858,6 +866,29 @@ document.querySelector('meta[name="theme-color"]')
   document.title = `${CONFIG.isim} — Sünnet Merasimi Davetiyesi`;
 
   document.getElementById("haritaBtn").href = CONFIG.haritaLink;
+
+  /* Takvime ekleme yolu cihaza göre değişmeli:
+       iOS        → .ics dosyasını Takvim uygulaması doğrudan açar, tek dokunuş
+       Android    → Chrome .ics'i AÇMIYOR, indiriyor. Kullanıcı indirilenler
+                    klasöründe kalıyor ve ne yapacağını bilmiyor.
+       Masaüstü   → .ics indiriliyor, aynı sorun.
+     Bu yüzden iOS dışında Google Takvim bağlantısına geçiyoruz: olay hazır
+     dolu geliyor, kullanıcı sadece "Kaydet" diyor. */
+  const takvim = document.getElementById("takvimBtn");
+  const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (takvim && !iOS){
+    const q = new URLSearchParams({
+      action  : "TEMPLATE",
+      text    : CONFIG.takvimAd,
+      dates   : `${CONFIG.takvimBas}/${CONFIG.takvimBit}`,
+      details : "Davetiye ve yol tarifi: " + location.href.split("#")[0],
+      location: CONFIG.takvimYer
+    });
+    takvim.href = "https://calendar.google.com/calendar/render?" + q.toString();
+    takvim.target = "_blank";
+    takvim.rel = "noopener";
+  }
 
   /* katılım bildirimi — numara tanımlı değilse bölüm tamamen kalkar */
   if (CONFIG.whatsapp){
