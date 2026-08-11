@@ -37,23 +37,60 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* ══════════════════════════════════════════════════════════
+   TEMA — düzen ve tezhip her temada aynı, yalnızca palet değişir.
+   Seçim en alttaki CONFIG.tema alanından yapılır.
+   ══════════════════════════════════════════════════════════ */
 :root{
   /* ── Zemin ────────────────────────────────────────────── */
-  --gece:      #050D1C;
-  --indigo:    #0A1A35;
-  --lacivert:  #10254A;
-  --mor-golge: #1A1B3A;
+  --zemin-ust:#0A1A35; --zemin-orta:#050D1C; --zemin-alt:#03070F;
+  --vurgu-isik:rgba(28,62,120,.55);
+  --altin-isik:rgba(201,162,39,.10);
+  --dip-golge:rgba(26,27,58,.85);
+  --vignette:rgba(3,7,15,.72);
+  --doku-opak:.055;
+  --grain-mod:overlay; --grain-opak:.16;
+  --zerre-parlak:#FFF8E2; --zerre-renk:#C9A227; --zerre-opak:1;
 
   /* ── Altın ────────────────────────────────────────────── */
   --altin:       #C9A227;
   --altin-acik:  #F4E3AC;
   --altin-parlak:#FFF8E2;
   --altin-koyu:  #7E611A;
+  --altin-dip:   #6E5416;
 
-  --fildisi: #F2ECDE;
-  /* Okunabilirlik: koyu zeminde .62 altı ikincil metin yaşlı gözler için zor,
-     tüm silik tonlar yükseltildi. */
-  --sis:     rgba(242,236,222,.82);
+  /* ── Metin ────────────────────────────────────────────── */
+  /* Okunabilirlik: silik ikincil metin yaşlı gözler için zor,
+     tüm tonlar yüksek tutuldu. */
+  --murekkep:    #F2ECDE;
+  --sis:         rgba(242,236,222,.82);
+  --davet-renk:  rgba(242,236,222,.96);
+  --nesep-renk:  rgba(242,236,222,.76);
+  --rol-renk:    rgba(242,236,222,.74);
+  --etiket-renk: rgba(244,227,172,.92);
+  --not-renk:    rgba(242,236,222,.8);
+  --birim-renk:  rgba(242,236,222,.75);
+  --tel-renk:    rgba(244,227,172,.85);
+
+  /* ── Çerçeve · madalyon ───────────────────────────────── */
+  --cerceve-dis:rgba(201,162,39,.24); --cerceve-ic:rgba(201,162,39,.11);
+  --hale:rgba(201,162,39,.20); --hale-ic:rgba(30,66,126,.10);
+  --harf-golge:rgba(201,162,39,.35);
+
+  /* ── Açılış perdesi ───────────────────────────────────── */
+  --perde-ust:#0B1E3E; --perde-alt:#050D1C;
+  --perde-isik:rgba(30,66,126,.5);
+  --perde-kenar:rgba(201,162,39,.55);
+  --perde-golge:rgba(0,0,0,.6);
+  --dikis-renk:var(--altin-acik); --dikis-parlak:var(--altin-parlak);
+
+  /* ── Butonlar ─────────────────────────────────────────── */
+  --dugme-kenar:rgba(201,162,39,.42);
+  --dugme-zemin:linear-gradient(180deg,rgba(201,162,39,.09),rgba(201,162,39,.02));
+  --dugme-yazi:var(--altin-acik);
+  --dugme-hover-yazi:#050D1C;
+  --sessiz-kenar:rgba(242,236,222,.24); --sessiz-yazi:rgba(242,236,222,.7);
+  --sessiz-hover:linear-gradient(180deg,rgba(242,236,222,.13),rgba(242,236,222,.04));
 
   --serif-display: "Bodoni Moda", "Didot", "Playfair Display", Georgia, serif;
   --serif-metin:   "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -63,13 +100,60 @@
   --yumusak: cubic-bezier(.65,0,.35,1);
 }
 
+/* ── Fildişi: açık tema, pamuk kâğıt hissi ──────────────────────────────
+   Kritik nokta: krem zeminde altın KOYU olmalı. Koyu temadaki parlak
+   tonlar burada kâğıdın içinde kaybolur; bu yüzden tüm skala bir kademe
+   aşağı çekildi — koyu temanın "altını" burada en parlak nokta.
+   Referans: krem kâğıda basılmış antik altın / bronz mürekkep. */
+[data-tema="fildisi"]{
+  --zemin-ust:#FAF5EA; --zemin-orta:#F2EBDB; --zemin-alt:#E6DCC6;
+  --vurgu-isik:rgba(255,252,244,.7);
+  --altin-isik:rgba(150,117,26,.07);
+  --dip-golge:rgba(192,172,130,.3);
+  --vignette:rgba(150,126,76,.13);
+  --doku-opak:.09;
+  --grain-mod:multiply; --grain-opak:.06;
+  --zerre-parlak:#A5821F; --zerre-renk:#5A4510; --zerre-opak:.5;
+
+  --altin:#7E6216; --altin-acik:#9C7A1C; --altin-parlak:#BC9320;
+  --altin-koyu:#5A4510; --altin-dip:#3E2F08;
+
+  --murekkep:#221A0E;
+  --sis:rgba(34,26,14,.88);
+  --davet-renk:rgba(34,26,14,.97);
+  --nesep-renk:rgba(34,26,14,.82);
+  --rol-renk:rgba(34,26,14,.78);
+  --etiket-renk:rgba(90,69,16,1);
+  --not-renk:rgba(34,26,14,.84);
+  --birim-renk:rgba(34,26,14,.78);
+  --tel-renk:rgba(90,69,16,.95);
+
+  --cerceve-dis:rgba(126,98,22,.5); --cerceve-ic:rgba(126,98,22,.24);
+  /* Kâğıt parlamaz: hale ışıma değil, çok hafif bir sıcaklık lekesi */
+  --hale:rgba(150,117,26,.13); --hale-ic:rgba(150,117,26,.05);
+  --harf-golge:rgba(126,98,22,.16);
+
+  --perde-ust:#FAF5EA; --perde-alt:#E9DFC9;
+  --perde-isik:rgba(255,253,247,.7);
+  --perde-kenar:rgba(126,98,22,.5);
+  --perde-golge:rgba(150,126,76,.26);
+  --dikis-renk:#7E6216; --dikis-parlak:#3E2F08;
+
+  --dugme-kenar:rgba(126,98,22,.55);
+  --dugme-zemin:linear-gradient(180deg,rgba(126,98,22,.09),rgba(126,98,22,.02));
+  --dugme-yazi:#5A4510;
+  --dugme-hover-yazi:#FBF7EC;
+  --sessiz-kenar:rgba(34,26,14,.24); --sessiz-yazi:rgba(34,26,14,.66);
+  --sessiz-hover:linear-gradient(180deg,rgba(34,26,14,.08),rgba(34,26,14,.02));
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth }
 
 body{
-  background:var(--gece);
-  color:var(--fildisi);
+  background:var(--zemin-orta);
+  color:var(--murekkep);
   font-family:var(--serif-metin);
   overflow-x:hidden;
   min-height:100vh;
@@ -86,35 +170,46 @@ body.kilitli{overflow:hidden;height:100vh}
 .atmosfer::before{                       /* derinlik ışıması */
   content:"";position:absolute;inset:0;
   background:
-    radial-gradient(120% 62% at 50% -8%,  rgba(28,62,120,.55) 0%, transparent 62%),
-    radial-gradient(85%  50% at 50% 30%,  rgba(201,162,39,.10) 0%, transparent 70%),
-    radial-gradient(140% 70% at 50% 108%, rgba(26,27,58,.85) 0%, transparent 66%),
-    linear-gradient(180deg,var(--indigo) 0%, var(--gece) 55%, #03070F 100%);
+    radial-gradient(120% 62% at 50% -8%,  var(--vurgu-isik) 0%, transparent 62%),
+    radial-gradient(85%  50% at 50% 30%,  var(--altin-isik) 0%, transparent 70%),
+    radial-gradient(140% 70% at 50% 108%, var(--dip-golge) 0%, transparent 66%),
+    linear-gradient(180deg,var(--zemin-ust) 0%, var(--zemin-orta) 55%, var(--zemin-alt) 100%);
 }
 
 .atmosfer .geometri{                     /* 8 köşeli yıldız (hatem) örgüsü */
   position:absolute;inset:-10%;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 60 60'><g fill='none' stroke='%23C9A227' stroke-width='.65'><polygon points='30,6 34.98,17.99 46.97,13.03 42.01,25.02 54,30 42.01,34.98 46.97,46.97 34.98,42.01 30,54 25.02,42.01 13.03,46.97 17.99,34.98 6,30 17.99,25.02 13.03,13.03 25.02,17.99'/><circle cx='30' cy='30' r='3.2'/></g></svg>");
-  opacity:.055;
+  opacity:var(--doku-opak);
   animation:dokuKay 90s linear infinite;
+}
+[data-tema="fildisi"] .atmosfer .geometri{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 60 60'><g fill='none' stroke='%238F6F16' stroke-width='.65'><polygon points='30,6 34.98,17.99 46.97,13.03 42.01,25.02 54,30 42.01,34.98 46.97,46.97 34.98,42.01 30,54 25.02,42.01 13.03,46.97 17.99,34.98 6,30 17.99,25.02 13.03,13.03 25.02,17.99'/><circle cx='30' cy='30' r='3.2'/></g></svg>");
 }
 @keyframes dokuKay{to{transform:translate3d(72px,72px,0)}}
 
 .atmosfer .grain{                        /* film taneciği */
-  position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
+  position:absolute;inset:0;opacity:var(--grain-opak);mix-blend-mode:var(--grain-mod);
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.5'/></svg>");
+}
+/* Pamuk kâğıt dokusu: yatayda gerilmiş gürültü lif yönü verir, üstüne
+   çok düşük frekanslı ikinci katman kâğıdın ton dalgalanmasını taklit eder. */
+[data-tema="fildisi"] .atmosfer .grain{
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.9 0.32' numOctaves='4' seed='7'/><feColorMatrix type='saturate' values='0'/></filter><rect width='260' height='260' filter='url(%23f)' opacity='.62'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='620' height='620'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='620' height='620' filter='url(%23m)' opacity='.5'/></svg>");
+  background-size:260px 260px, 620px 620px;
 }
 
 .atmosfer .vignette{
   position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 45%, transparent 34%, rgba(3,7,15,.72) 100%);
+  background:radial-gradient(circle at 50% 45%, transparent 34%, var(--vignette) 100%);
 }
 
 /* altın tozu */
 .toz{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .zerre{
   position:absolute;border-radius:50%;
-  background:radial-gradient(circle,var(--altin-parlak) 0%,var(--altin) 45%,transparent 72%);
+  background:radial-gradient(circle,var(--zerre-parlak) 0%,var(--zerre-renk) 45%,transparent 72%);
   animation:suzul linear infinite;
   opacity:0;
 }
@@ -128,17 +223,44 @@ body.kilitli{overflow:hidden;height:100vh}
 /* ══════════════════════════════════════════════════════════
    ALTIN VARAK — metin üstünde akan yaldız
    ══════════════════════════════════════════════════════════ */
+/* Gerçek varak ışığı iki kez yakalar: bir ana parlama, bir de sönümlenip
+   yeniden yükselen ikincil parlama. Tek tepe noktalı gradyan boya gibi
+   duruyordu, çift tepe metal gibi duruyor. */
 .varak{
   background:linear-gradient(102deg,
-    #6E5416 0%, var(--altin-koyu) 12%, var(--altin) 27%,
-    var(--altin-acik) 40%, var(--altin-parlak) 47%, var(--altin-acik) 54%,
-    var(--altin) 68%, var(--altin-koyu) 86%, #6E5416 100%);
+    var(--altin-dip) 0%,   var(--altin-koyu) 9%,  var(--altin) 20%,
+    var(--altin-acik) 31%, var(--altin-parlak) 38%, var(--altin-acik) 45%,
+    var(--altin) 54%,      var(--altin-koyu) 64%,
+    var(--altin) 76%,      var(--altin-acik) 87%, var(--altin-koyu) 100%);
   background-size:260% 100%;
   -webkit-background-clip:text; background-clip:text;
   color:transparent;
   animation:varakAk 9s var(--yumusak) infinite;
 }
 @keyframes varakAk{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ══════════════════════════════════════════════════════════
+   LETTERPRESS — açık temada baskının kâğıda gömülme izlenimi.
+   Işık üstten gelir: baskının üst kenarında gölge, alt kenarında
+   kâğıdın aydınlığı. Lüks kırtasiyeyi lüks yapan şey bu izdir.
+   ══════════════════════════════════════════════════════════ */
+[data-tema="fildisi"] .varak{
+  filter:
+    drop-shadow(0 -0.5px 0.4px rgba(46,34,6,.34))
+    drop-shadow(0  1px   0.4px rgba(255,253,247,.62));
+}
+[data-tema="fildisi"] .madalyon svg,
+[data-tema="fildisi"] .ayrac,
+[data-tema="fildisi"] .kose{
+  filter:drop-shadow(0 .5px .4px rgba(255,253,247,.5));
+}
+/* .varak öğelerine text-shadow verilmez: metin şeffaf olduğu için
+   gölge hayalet gibi görünür. Onlar yukarıdaki drop-shadow ile hallediliyor. */
+[data-tema="fildisi"] .deger,
+[data-tema="fildisi"] .davet,
+[data-tema="fildisi"] .nesep{
+  text-shadow:0 1px 0 rgba(255,252,244,.55);
+}
 
 .cizgi-altin{ stroke:var(--altin); }
 
@@ -152,23 +274,23 @@ body.kilitli{overflow:hidden;height:100vh}
 .kanat{
   position:absolute;top:0;height:100%;width:50.6%;
   background:
-    radial-gradient(120% 90% at 50% 40%, rgba(30,66,126,.5), transparent 70%),
-    linear-gradient(180deg,#0B1E3E,#050D1C);
+    radial-gradient(120% 90% at 50% 40%, var(--perde-isik), transparent 70%),
+    linear-gradient(180deg,var(--perde-ust),var(--perde-alt));
   transition:transform 1.5s var(--kolay);
   will-change:transform;
 }
-.kanat.sol {left:0;  box-shadow:inset -1px 0 0 rgba(201,162,39,.55), 24px 0 60px rgba(0,0,0,.6)}
-.kanat.sag {right:0; box-shadow:inset  1px 0 0 rgba(201,162,39,.55),-24px 0 60px rgba(0,0,0,.6)}
+.kanat.sol {left:0;  box-shadow:inset -1px 0 0 var(--perde-kenar), 24px 0 60px var(--perde-golge)}
+.kanat.sag {right:0; box-shadow:inset  1px 0 0 var(--perde-kenar),-24px 0 60px var(--perde-golge)}
 #kapak.acildi .kanat.sol{transform:translateX(-101%)}
 #kapak.acildi .kanat.sag{transform:translateX(101%)}
 
 .dikis{                                   /* perde arası altın ışık */
   position:absolute;top:0;left:50%;width:1px;height:100%;
   transform:translateX(-.5px);
-  background:linear-gradient(180deg,transparent,var(--altin-acik) 22%,var(--altin-parlak) 50%,var(--altin-acik) 78%,transparent);
+  background:linear-gradient(180deg,transparent,var(--dikis-renk) 22%,var(--dikis-parlak) 50%,var(--dikis-renk) 78%,transparent);
   opacity:0;transition:opacity .5s ease, box-shadow .8s ease;
 }
-#kapak.acildi .dikis{opacity:1;box-shadow:0 0 40px 8px rgba(244,227,172,.5)}
+#kapak.acildi .dikis{opacity:1;box-shadow:0 0 40px 8px var(--hale)}
 
 .muhur-alan{
   position:absolute;inset:0;display:grid;place-items:center;
@@ -191,7 +313,7 @@ body.kilitli{overflow:hidden;height:100vh}
 }
 .muhur::after{
   content:"";position:absolute;inset:-24%;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,162,39,.28),transparent 66%);
+  background:radial-gradient(circle,var(--hale),transparent 66%);
   animation:hale 3.4s ease-in-out infinite;z-index:-1;
 }
 @keyframes hale{0%,100%{opacity:.5;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
@@ -200,7 +322,7 @@ body.kilitli{overflow:hidden;height:100vh}
   position:absolute;bottom:15vh;left:0;right:0;text-align:center;
   font-family:var(--sans);font-size:clamp(.76rem,3.1vw,.88rem);font-weight:400;
   letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;
-  color:rgba(244,227,172,.95);
+  color:var(--tel-renk);
   animation:solukAl 2.6s ease-in-out infinite;
 }
 @keyframes solukAl{0%,100%{opacity:.62}50%{opacity:1}}
@@ -210,10 +332,10 @@ body.kilitli{overflow:hidden;height:100vh}
    ══════════════════════════════════════════════════════════ */
 .cerceve{
   position:fixed;inset:clamp(10px,2.4vw,22px);z-index:3;pointer-events:none;
-  border:1px solid rgba(201,162,39,.24);
+  border:1px solid var(--cerceve-dis);
 }
 .cerceve::before{
-  content:"";position:absolute;inset:5px;border:1px solid rgba(201,162,39,.11);
+  content:"";position:absolute;inset:5px;border:1px solid var(--cerceve-ic);
 }
 .kose{position:absolute;width:clamp(52px,11vw,96px);height:clamp(52px,11vw,96px);opacity:.85}
 .kose.su{top:-1px;left:-1px}
@@ -240,7 +362,7 @@ main{
 }
 @media (prefers-reduced-motion:reduce){
   .gir,.gir.gorundu{opacity:1;transform:none;filter:none;transition:none}
-  .zerre,.atmosfer .geometri,.varak,.muhur,.muhur::after{animation:none}
+  .zerre,.atmosfer .geometri,.varak,.muhur,.muhur::after,#donen{animation:none}
   .varak{background-position:38% 50%}
 }
 
@@ -270,14 +392,25 @@ main{
 .madalyon svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .madalyon::after{
   content:"";position:absolute;inset:-14%;border-radius:50%;z-index:-1;
-  background:radial-gradient(circle,rgba(201,162,39,.20) 0%,rgba(30,66,126,.10) 45%,transparent 70%);
+  background:radial-gradient(circle,var(--hale) 0%,var(--hale-ic) 45%,transparent 70%);
 }
 .madalyon .harf{
   position:relative;font-family:var(--serif-display);font-weight:500;
   font-size:min(23vw,94px);line-height:1;
   transform:translateY(13%);            /* tuğ tacına yer aç */
-  text-shadow:0 0 34px rgba(201,162,39,.35);
+  text-shadow:0 0 34px var(--harf-golge);
 }
+/* Bodoni'nin ince yan çizgileri açık zeminde kayboluyor — gövdeyi kalınlaştır */
+[data-tema="fildisi"] .madalyon .harf{ font-weight:600 }
+
+/* ── Şemse yavaşça döner: hareket var ama dikkat dağıtmıyor.
+      Tuğra tacı ve harf dışarıda kaldığı için dik durmaya devam eder. ── */
+#donen{
+  transform-box:view-box;
+  transform-origin:200px 200px;
+  animation:semseDon 110s linear infinite;
+}
+@keyframes semseDon{ to{ transform:rotate(360deg) } }
 
 /* çizim animasyonu */
 .ciz{stroke-dasharray:var(--uz);stroke-dashoffset:var(--uz)}
@@ -311,7 +444,7 @@ main{
 .davet{
   font-size:clamp(1.2rem,5.2vw,1.48rem);
   font-weight:400;line-height:1.9;letter-spacing:.012em;
-  color:rgba(242,236,222,.96);
+  color:var(--davet-renk);
   max-width:26ch;margin-inline:auto;
 }
 .davet em{
@@ -326,13 +459,13 @@ main{
   font-family:var(--sans);font-weight:400;
   font-size:clamp(.66rem,2.7vw,.76rem);
   letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;
-  color:rgba(244,227,172,.92);
+  color:var(--etiket-renk);
   margin-bottom:clamp(12px,3vw,16px);
 }
 .deger{
   font-family:var(--serif-display);font-weight:400;
   font-size:clamp(1.5rem,7vw,2.15rem);line-height:1.24;
-  color:var(--fildisi);
+  color:var(--murekkep);
 }
 .deger .ince{
   display:block;font-family:var(--serif-metin);font-weight:400;font-style:italic;
@@ -362,9 +495,9 @@ main{
   font-family:var(--sans);font-weight:400;
   font-size:clamp(.64rem,2.6vw,.72rem);
   text-transform:uppercase;
-  color:var(--altin-acik);text-decoration:none;
-  border:1px solid rgba(201,162,39,.42);
-  background:linear-gradient(180deg,rgba(201,162,39,.09),rgba(201,162,39,.02));
+  color:var(--dugme-yazi);text-decoration:none;
+  border:1px solid var(--dugme-kenar);
+  background:var(--dugme-zemin);
   overflow:hidden;
   transition:color .45s ease,border-color .45s ease,transform .45s var(--kolay),box-shadow .45s ease;
 }
@@ -377,10 +510,10 @@ main{
   transform:translateX(-120%);transition:transform .95s var(--yumusak);
 }
 .dugme:hover,.dugme:focus-visible{
-  color:var(--gece);border-color:var(--altin-acik);
+  color:var(--dugme-hover-yazi);border-color:var(--altin-acik);
   background:linear-gradient(180deg,var(--altin-acik),var(--altin));
   transform:translateY(-2px);
-  box-shadow:0 12px 34px -12px rgba(201,162,39,.6);
+  box-shadow:0 12px 34px -12px var(--altin);
   outline:none;
 }
 .dugme:hover::before,.dugme:focus-visible::before{transform:translateX(120%)}
@@ -391,31 +524,33 @@ main{
 .katilim-not{
   font-family:var(--serif-metin);font-weight:400;font-style:italic;
   font-size:clamp(1.02rem,4.2vw,1.16rem);line-height:1.62;
-  color:rgba(242,236,222,.8);
+  color:var(--not-renk);
   max-width:27ch;margin:0 auto clamp(22px,5vw,30px);
 }
 /* birincil: istediğimiz eylem, yaldız dolgulu */
 .dugme.birincil{
-  border-color:rgba(244,227,172,.6);
-  background:linear-gradient(180deg,rgba(201,162,39,.24),rgba(201,162,39,.07));
-  color:var(--altin-parlak);
+  border-color:var(--altin);
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--altin) 24%, transparent),
+    color-mix(in srgb, var(--altin) 7%,  transparent));
+  color:var(--dugme-yazi);
 }
 /* sessiz: eşit ağırlıkta olmamalı, sadece bir çıkış yolu */
 .dugme.sessiz{
-  border-color:rgba(242,236,222,.24);
-  background:none;color:rgba(242,236,222,.7);
+  border-color:var(--sessiz-kenar);
+  background:none;color:var(--sessiz-yazi);
 }
 .dugme.sessiz:hover,.dugme.sessiz:focus-visible{
-  background:linear-gradient(180deg,rgba(242,236,222,.13),rgba(242,236,222,.04));
-  border-color:rgba(242,236,222,.38);
-  color:var(--fildisi);box-shadow:none;
+  background:var(--sessiz-hover);
+  border-color:var(--murekkep);
+  color:var(--murekkep);box-shadow:none;
 }
 .tel{
   display:inline-block;margin-top:clamp(20px,5vw,28px);
   font-family:var(--sans);font-weight:400;
   font-size:clamp(.7rem,2.8vw,.8rem);letter-spacing:.16em;
-  color:rgba(244,227,172,.85);text-decoration:none;
-  border-bottom:1px solid rgba(201,162,39,.24);padding-bottom:.35em;
+  color:var(--tel-renk);text-decoration:none;
+  border-bottom:1px solid var(--cerceve-dis);padding-bottom:.35em;
   transition:color .35s ease,border-color .35s ease;
 }
 .tel:hover{color:var(--altin-acik);border-color:rgba(244,227,172,.6)}
@@ -429,7 +564,7 @@ main{
 .nesep{
   font-family:var(--serif-metin);font-style:italic;font-weight:400;
   font-size:clamp(.98rem,4vw,1.12rem);letter-spacing:.02em;
-  color:rgba(242,236,222,.76);margin-bottom:.62rem;
+  color:var(--nesep-renk);margin-bottom:.62rem;
 }
 .imza .ad{
   font-family:var(--serif-display);font-weight:400;
@@ -439,7 +574,7 @@ main{
   font-family:var(--sans);font-weight:400;
   font-size:clamp(.64rem,2.6vw,.74rem);
   letter-spacing:.32em;text-indent:.32em;text-transform:uppercase;
-  color:rgba(242,236,222,.74);margin-top:.85rem;
+  color:var(--rol-renk);margin-top:.85rem;
 }
 
 /* geri sayım */
@@ -457,7 +592,7 @@ main{
   font-family:var(--sans);font-weight:400;
   font-size:clamp(.58rem,2.3vw,.67rem);
   letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;
-  color:rgba(242,236,222,.75);margin-top:.6rem;
+  color:var(--birim-renk);margin-top:.6rem;
 }
 </style>
 </head>
@@ -523,12 +658,12 @@ main{
        Kim çağırıyor → ne zaman → nerede → bildir. -->
   <div class="imza gir" id="imza">
     <div class="ebeveyn">
-      <p class="nesep">Merhum Mustafa Köseoğlu torunu</p>
+      <p class="nesep">Merhum Mustafa Köseoğlu ve<br>Havva Dudu Köseoğlu torunu</p>
       <p class="ad varak">İsmail Köseoğlu</p>
       <p class="rol">Baba</p>
     </div>
     <div class="ebeveyn">
-      <p class="nesep">Merhum Ali Benlioğlu torunu</p>
+      <p class="nesep">Merhum Ali Benlioğlu ve<br>Semra Benlioğlu torunu</p>
       <p class="ad varak">Zerrin Köseoğlu</p>
       <p class="rol">Anne</p>
     </div>
@@ -589,7 +724,6 @@ main{
         <span class="yazi">Katılamıyorum</span>
       </a>
     </div>
-    <a class="tel" id="telBtn" href="#"></a>
   </div>
 
 </main>
@@ -599,6 +733,7 @@ main{
    ①  CONFIG — SADECE BURAYI DEĞİŞTİR
    ══════════════════════════════════════════════════════════════════════ */
 const CONFIG = {
+  tema      : "fildisi",                    // "fildisi" (açık) | "gece" (koyu)
   monogram  : "M",                          // madalyondaki tek harf
   isim      : "Mustafa Alp Köseoğlu",
   isimSatir : ["Mustafa Alp", "Köseoğlu"],  // başlıkta satır kırılımı
@@ -623,8 +758,12 @@ const CONFIG = {
   davetMetni: "Sevgili oğlumuz <em>Mustafa&nbsp;Alp</em>’ın sünnet merasimine " +
               "teşrifleriniz bizleri onurlandıracaktır.",
 
-  baba : { ad:"İsmail Köseoğlu", nesep:"Merhum Mustafa Köseoğlu torunu" },
-  anne : { ad:"Zerrin Köseoğlu", nesep:"Merhum Ali Benlioğlu torunu"   },
+  /* "Merhum" yalnızca ilk isme ait — dedeler vefat etti, nineler yaşıyor.
+     Bu yüzden sıralama bilerek "Merhum X ve Y" biçiminde. */
+  baba : { ad:"İsmail Köseoğlu",
+           nesep:"Merhum Mustafa Köseoğlu ve<br>Havva Dudu Köseoğlu torunu" },
+  anne : { ad:"Zerrin Köseoğlu",
+           nesep:"Merhum Ali Benlioğlu ve<br>Semra Benlioğlu torunu" },
 
   // ISO formatı: YYYY-MM-DDTHH:MM  → geri sayım bunu kullanır
   merasimZamani : "2026-08-22T20:00",
@@ -647,6 +786,13 @@ const CONFIG = {
 /* ══════════════════════════════════════════════════════════════════════
    ②  METİNLERİ YERLEŞTİR
    ══════════════════════════════════════════════════════════════════════ */
+/* Tema her şeyden önce uygulanmalı: tezhip gradyanları CSS değişkenlerinden
+   okunuyor, sonradan uygulanırsa süslemeler eski paletle çizilir. */
+if (CONFIG.tema && CONFIG.tema !== "gece")
+  document.documentElement.setAttribute("data-tema", CONFIG.tema);
+document.querySelector('meta[name="theme-color"]')
+  ?.setAttribute("content", CONFIG.tema === "fildisi" ? "#EFE7D6" : "#060F20");
+
 (function doldur(){
   const bul = alan => document.querySelector(`[data-alan="${alan}"]`);
   const yaz = (alan, deger) => document.querySelectorAll(`[data-alan="${alan}"]`)
@@ -686,10 +832,6 @@ const CONFIG = {
     const wa = m => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(m)}`;
     document.getElementById("evetBtn").href  = wa(CONFIG.mesajEvet);
     document.getElementById("hayirBtn").href = wa(CONFIG.mesajHayir);
-
-    const tel = document.getElementById("telBtn");
-    tel.href = "tel:+" + CONFIG.whatsapp;
-    tel.textContent = "veya arayın · " + CONFIG.telefonYazi;
   } else {
     document.getElementById("katilim").remove();
   }
@@ -751,15 +893,18 @@ function el(tip, ozellik){
   return e;
 }
 
-/* altın gradyan tanımı — her svg'ye kendi id'siyle enjekte edilir */
+/* Altın gradyan — duraklar CSS değişkenlerinden okunur, böylece tezhip
+   çizgileri seçilen temanın altın tonunu otomatik alır. */
 let gradSayac = 0;
 function altinGrad(svg){
+  const cs = getComputedStyle(document.documentElement);
+  const c  = k => cs.getPropertyValue(k).trim();
   const id = "altin" + (++gradSayac);
   const defs = el("defs");
   const lg = el("linearGradient", {id, x1:"0%", y1:"0%", x2:"100%", y2:"100%"});
-  [["0%","#7E611A"],["22%","#C9A227"],["45%","#F4E3AC"],["58%","#FFF8E2"],
-   ["74%","#C9A227"],["100%","#7E611A"]]
-    .forEach(([o,c]) => lg.appendChild(el("stop",{offset:o,"stop-color":c})));
+  [["0%",c("--altin-koyu")],["22%",c("--altin")],["45%",c("--altin-acik")],
+   ["58%",c("--altin-parlak")],["74%",c("--altin")],["100%",c("--altin-koyu")]]
+    .forEach(([o,col]) => lg.appendChild(el("stop",{offset:o,"stop-color":col})));
   defs.appendChild(lg);
   svg.appendChild(defs);
   return `url(#${id})`;
@@ -805,6 +950,10 @@ function rumi(uzunluk, kalinlik){
   const C = 200;
   const g = el("g", {fill:"none", stroke:g0, "stroke-linecap":"round", "stroke-linejoin":"round"});
 
+  /* Dönen katman: ışınlar, halkalar ve yıldızlar yavaşça döner.
+     Tuğra tacı ile M harfi bunun dışında kalır — onlar dik durmalı. */
+  const donen = el("g", {id:"donen"});
+
   // dışa taşan ışın yaprakları (şemsenin "güneş"i)
   const isinlar = el("g", {fill:g0, opacity:".9"});
   const IS = 20;
@@ -818,7 +967,7 @@ function rumi(uzunluk, kalinlik){
       transform:`translate(${n(x)} ${n(y)}) rotate(${n(a*180/Math.PI)})`
     }));
   }
-  svg.appendChild(isinlar);
+  donen.appendChild(isinlar);
 
   // halkalar
   [[152,.9,.55],[144,.8,.32]].forEach(([r,w,o])=>
@@ -841,7 +990,8 @@ function rumi(uzunluk, kalinlik){
     const [x,y]=P(a,96,C,C);
     nokta.appendChild(el("circle",{cx:n(x),cy:n(y),r:1.5}));
   }
-  svg.appendChild(g); svg.appendChild(nokta);
+  donen.appendChild(g); donen.appendChild(nokta);
+  svg.appendChild(donen);
 
   // ── tuğra izleği: harfin üstünde üç "tuğ"dan taç + "sere" kavsi ──
   const tugra = el("g",{fill:"none",stroke:g0,"stroke-linecap":"round",opacity:".95"});
@@ -929,6 +1079,25 @@ document.querySelectorAll(".ayrac").forEach(svg=>{
   y.appendChild(el("path",{d:rumi(17,5), transform:"translate(150 13)"}));
   svg.appendChild(y);
 });
+
+/* ══════════════════════════════════════════════════════════════════════
+   ③b  AÇIK TEMADA ÇİZGİ AĞIRLIĞI
+   Koyu zeminde kıl inceliğinde çizgi zarif durur; açık zeminde aynı çizgi
+   kâğıdın içinde kaybolur. Işık/koyu ilişkisi simetrik değil, bu yüzden
+   fildişi temasında tüm tezhip çizgileri kalınlaştırılıp koyulaştırılır.
+   ══════════════════════════════════════════════════════════════════════ */
+if (CONFIG.tema === "fildisi"){
+  document.querySelectorAll("svg [stroke-width]").forEach(p=>{
+    const w = parseFloat(p.getAttribute("stroke-width"));
+    if (!isNaN(w)) p.setAttribute("stroke-width", (w * 1.75).toFixed(2));
+    const o = parseFloat(p.getAttribute("opacity"));
+    if (!isNaN(o)) p.setAttribute("opacity", Math.min(1, o * 1.55).toFixed(2));
+  });
+  document.querySelectorAll("svg g[fill]:not([fill='none'])").forEach(g=>{
+    const o = parseFloat(g.getAttribute("opacity"));
+    if (!isNaN(o)) g.setAttribute("opacity", Math.min(1, o * 1.3).toFixed(2));
+  });
+}
 
 /* ══════════════════════════════════════════════════════════════════════
    ④  ALTIN TOZU
