@@ -1055,12 +1055,15 @@ document.querySelectorAll(".kose").forEach(svg=>{
   g.appendChild(el("path",{d:"M0 44 C0 20 20 0 44 0",  opacity:".5","stroke-width":.7}));
   g.appendChild(el("path",{d:"M8 86 C8 40 40 8 86 8",  opacity:".28","stroke-width":.7}));
   svg.appendChild(g);
+  /* Rumi yaprakları 45° köşegene simetrik bir yelpaze oluşturur.
+     DİKKAT: yukarıdaki yaylar gerçek daire yayı değil, kontrol noktaları
+     0.45 oranında yassı Bézier'ler — 45°'de r=62 yayı aslında r≈26'da,
+     r=86 yayı r≈42'de geçer. Yarıçaplar bu ölçüme göre seçildi. */
   const y = el("g",{fill:g0,opacity:".85"});
-  [[18,-2],[45,10],[72,22]].forEach(([r,a])=>{
-    const rad = (135+a)*Math.PI/180;
-    const [x,yy] = P(rad, r, 30, 30);
-    y.appendChild(el("path",{d:rumi(15,4.6),
-      transform:`translate(${n(x)} ${n(yy)}) rotate(${n(45+a)})`}));
+  [[30,7.5],[45,11],[60,7.5]].forEach(([derece,boy])=>{
+    const [x,yy] = P(derece*Math.PI/180, 29);
+    y.appendChild(el("path",{d:rumi(boy,4.2),
+      transform:`translate(${n(x)} ${n(yy)}) rotate(${derece})`}));
   });
   svg.appendChild(y);
 });
