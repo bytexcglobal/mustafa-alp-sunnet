@@ -34,7 +34,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -246,10 +246,19 @@ main{
 
 /* ── üst etiket ── */
 .besmele{
-  font-family:var(--sans);font-weight:300;
-  font-size:clamp(.6rem,2.4vw,.7rem);
+  font-family:var(--sans);font-weight:400;
+  font-size:clamp(.66rem,2.7vw,.78rem);
   letter-spacing:.58em;text-indent:.58em;text-transform:uppercase;
   margin-bottom:clamp(30px,7vw,44px);
+}
+/* Arapça: harf aralığı ve büyük harf dönüşümü ASLA uygulanmamalı —
+   ikisi de harflerin birbirine bağlanmasını bozar. */
+.besmele.arapca{
+  font-family:"Amiri","Scheherazade New","Noto Naskh Arabic",serif;
+  font-weight:400;font-size:clamp(1.4rem,6.5vw,2rem);line-height:1.3;
+  letter-spacing:normal;text-indent:0;text-transform:none;
+  direction:rtl;
+  margin-bottom:clamp(24px,6vw,36px);
 }
 
 /* ── şemse madalyon ── */
@@ -488,7 +497,7 @@ main{
 <!-- ═══════════ DAVETİYE ═══════════ -->
 <main>
 
-  <p class="besmele varak gir" data-alan="ust-etiket">Maşallah</p>
+  <p class="besmele arapca varak gir" data-alan="ust-etiket" dir="rtl">﷽</p>
 
   <div class="madalyon gir" style="--gec:.08s">
     <svg viewBox="0 0 400 400" id="semse" aria-hidden="true"></svg>
@@ -594,7 +603,13 @@ const CONFIG = {
   isim      : "Mustafa Alp Köseoğlu",
   isimSatir : ["Mustafa Alp", "Köseoğlu"],  // başlıkta satır kırılımı
 
-  ustEtiket : "Maşallah",
+  /* Üst yazı. Seçenekler:
+       "﷽"                                → tek glifte hatlı besmele (Amiri)
+       "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"  → besmele, açık nesih
+       "مَا شَاءَ اللَّهُ"                     → maşallah
+       "Maşallah"                          → latin (arapcaUst:false yap)   */
+  ustEtiket : "﷽",
+  arapcaUst : true,
 
   tarih     : "22 Ağustos 2026",
   gun       : "Cumartesi",
@@ -637,8 +652,12 @@ const CONFIG = {
   const yaz = (alan, deger) => document.querySelectorAll(`[data-alan="${alan}"]`)
                                        .forEach(el => el.textContent = deger);
   yaz("monogram",   CONFIG.monogram);
-  yaz("ust-etiket", CONFIG.ustEtiket);
   yaz("saat",       CONFIG.saat);
+
+  const ust = bul("ust-etiket");
+  ust.textContent = CONFIG.ustEtiket;
+  ust.classList.toggle("arapca", !!CONFIG.arapcaUst);
+  ust.setAttribute("dir", CONFIG.arapcaUst ? "rtl" : "ltr");
 
   /* her satır kendi yaldız geçişini alsın — tek gradyan uzun isimlerde sönükleşiyor */
   const satirlar = CONFIG.isimSatir && CONFIG.isimSatir.length
@@ -679,6 +698,24 @@ const CONFIG = {
 /* ══════════════════════════════════════════════════════════════════════
    ②b  İSİM SIĞDIRMA — uzun isimler çerçeveye değmesin
    ══════════════════════════════════════════════════════════════════════ */
+/* Besmelenin genişliği yazı tipine ve seçilen metne göre çok değişiyor
+   (tek glifli ﷽ ligatürü açık yazımdan kat kat geniş çiziliyor).
+   Punto sabitlemek yerine kolon genişliğine ölçekliyoruz. */
+function besmeleSigdir(){
+  const e = document.querySelector(".besmele");
+  if (!e || !e.classList.contains("arapca")) return;
+  e.style.fontSize = "";
+  const hedef = e.clientWidth * 0.96;
+  if (hedef <= 0) return;
+  const r = document.createRange();
+  const en = () => { r.selectNodeContents(e); return r.getBoundingClientRect().width; };
+  let boy = parseFloat(getComputedStyle(e).fontSize), n = 0;
+  while (en() > hedef        && boy > 10  && n++ < 300) { boy -= 1; e.style.fontSize = boy+"px"; }
+  while (en() < hedef * 0.88 && boy < 160 && n++ < 600) { boy += 1; e.style.fontSize = boy+"px"; }
+}
+document.fonts.ready.then(besmeleSigdir);
+addEventListener("resize", besmeleSigdir);
+
 function isimSigdir(){
   const h = document.querySelector(".isim");
   h.style.fontSize = "";                         // önce clamp değerine dön
